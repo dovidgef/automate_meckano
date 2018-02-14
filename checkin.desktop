@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Checkin
-Comment=Checkout from Meckano
+Comment=Checkin To Meckano
 Exec=/home/dovidgef/commands/automate_meckano.py
-Icon=/usr/share/icons/Humanity/apps/24/config-users.svg 
+Icon=/usr/share/icons/Humanity/apps/24/gnome-logout.svg
 Terminal=false
 Type=Application

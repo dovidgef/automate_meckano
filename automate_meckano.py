@@ -38,14 +38,15 @@ def update_task(new_task):
             driver.find_element_by_id("stop-task").click()
         except:
             pass
-        time.sleep(1)
-        driver.find_element_by_css_selector(".task-selector").click()
-        driver.find_element_by_link_text(new_task).click()
-        # Start new task
-        try:
-            driver.find_element_by_id("start-task").click()
-        except:
-            pass
+        if new_task != 'none':
+            time.sleep(1)
+            driver.find_element_by_css_selector(".task-selector").click()
+            driver.find_element_by_link_text(new_task).click()
+            # Start new task
+            try:
+                driver.find_element_by_id("start-task").click()
+            except:
+                pass
 
 
 try:
