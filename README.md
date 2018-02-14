@@ -9,6 +9,11 @@
 * Copy files to desktop and give them executable permissions
 * Enjoy
 
+#### Windows Setup
+* Copy Login To.. and Logout From .. to desktop
+* Right click on icons > Click properties
+* Customize target to correct path on your system
+
 #### Instructions
 * Run `python automate_meckano.py` to checking and switch to default Project/Task(Set in meckano.json)
 * Run `python automate_meckano.py logout` to checkout from Meckano and from Project/Task
