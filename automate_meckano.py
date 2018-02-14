@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-import json
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import sys
 import os
 import platform
+import json
 
 config_path = os.path.join(sys.path[0], 'meckano.json')
 # Get access parameters
@@ -14,15 +17,22 @@ with open(config_path) as data_file:
     password = data.get('password')
     task = data.get('task')
 
+options = webdriver.ChromeOptions()
+
 if platform.system() == "Linux":
     chromedriver_path = os.path.join(sys.path[0], 'chromedriver')
+    # Path to selenium chrome profile
+    options.add_argument("user-data-dir=/home/dovidgef/.config/google-chrome/Selenium/")
 elif platform.system() == "Windows":
     chromedriver_path = os.path.join(sys.path[0], 'chromedriver.exe')
 else:
     chromedriver_path = ""
 
-driver = webdriver.Chrome(chromedriver_path)
-driver.implicitly_wait(5)
+
+driver = webdriver.Chrome(chromedriver_path, chrome_options=options)
+driver.implicitly_wait(10)
+wait = WebDriverWait(driver, 10)
+
 driver.get("https://app.meckano.co.il")
 
 driver.find_element_by_id("email").send_keys(username)
@@ -39,18 +49,22 @@ def update_task(new_task):
         except:
             pass
         if new_task != 'none':
-            time.sleep(1)
+            # Wait for select box to be clickable
+            element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.sbSelector')))
             driver.find_element_by_css_selector(".task-selector").click()
+            element = wait.until(EC.visibility_of_element_located((By.LINK_TEXT, new_task)))
             driver.find_element_by_link_text(new_task).click()
             # Start new task
             try:
                 driver.find_element_by_id("start-task").click()
+                element = wait.until(EC.element_to_be_clickable((By.ID, 'stop-task')))
             except:
                 pass
 
 
 try:
     driver.find_element_by_id("checkin-button").click()
+    element = wait.until(EC.element_to_be_clickable((By.ID, 'checkout-button')))
 except:
     pass
 
@@ -60,19 +74,20 @@ if len(sys.argv) > 1:
     if arg == "logout":
         try:
             driver.find_element_by_id("stop-task").click()
-            time.sleep(2)
+            element = wait.until(EC.element_to_be_clickable((By.ID, 'start-task')))
         except:
             pass
 
         try:
             driver.find_element_by_id("checkout-button").click()
-            time.sleep(2)
+            element = wait.until(EC.element_to_be_clickable((By.ID, 'checkin-button')))
         except:
             pass
 
         driver.close()
 
         if platform.system() == "Linux":
+            print("hello")
             os.system("systemctl suspend")
         elif platform.system() == "Windows":
             os.system('%windir%\System32\rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
@@ -85,5 +100,4 @@ if len(sys.argv) > 1:
 else:
     update_task(task)
 
-time.sleep(2)
 driver.close()

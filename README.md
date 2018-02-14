@@ -5,9 +5,21 @@
 * In meckano.json replace values with your own username, password and task values.
 
 ##### Ubuntu Setup
-* Give script full permissions `sudo chmod 777 automate_meckano.py`
+###### Desktop Shortcuts
 * Customize checkin.desktop and checkout.desktop with correct path to script on your system
 * Copy files to desktop
+###### Command Line Shortcuts
+* Add the following lines to end of your `~/.bashrc` file
+```
+alias login='~/PycharmProjects/automate_meckano/automate_meckano.py'
+alias logout='~/PycharmProjects/automate_meckano/automate_meckano.py logout'
+```
+* Customize paths to script location on your system
+* Run `source ~/.bashrc`
+* In any terminal run `login` to checkin to Meckano and to select automatically your default task.
+* Run `login Task_Name` to switch task
+* Run `logout` to checkout from Mekano and exit from your task
+
 
 #### Windows Setup
 * Copy Login To Meckano.lnk and Logout From Meckano.lnk to desktop
