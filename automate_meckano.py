@@ -74,7 +74,7 @@ if len(sys.argv) > 1:
         if platform.system() == "Linux":
             os.system("systemctl suspend")
         elif platform.system() == "Windows":
-            os.system('powercfg -hibernate off  &&  start /min "" %windir%\System32\rundll32.exe powrprof.dll,SetSuspendState Standby  &&  ping -n 3 127.0.0.1  &&  powercfg -hibernate on')
+            os.system('%windir%\System32\rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
 
         exit()
     else:
