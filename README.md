@@ -1,6 +1,7 @@
 ## Automate Meckano Checkin & Task Switching
 #### General Setup
-`pip install -r requirements.txt`
+* `git clone https://github.com/dovidgef/automate_meckano.git`
+* `pip install -r requirements.txt`
 
 ##### Ubuntu Setup
 * Give script full permissions `sudo chmod 777 automate_meckano.py`
