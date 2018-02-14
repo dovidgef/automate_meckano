@@ -26,6 +26,11 @@ alias logout='~/PycharmProjects/automate_meckano/automate_meckano.py logout'
 * Right click on icons > Click properties
 * Customize target to correct path for your system
 
+##### Turn Off Hibernate
+Turn off Hibernate so that the computer goes to sleep instead of hibernating on logout:
+* Open cmd with administrator rights
+* Run `powercfg.exe /h off`
+
 #### Instructions
 * Run `python automate_meckano.py` to checkin and switch to default Project/Task(Set in meckano.json)
 * Run `python automate_meckano.py logout` to checkout from Meckano and from Project/Task

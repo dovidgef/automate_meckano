@@ -90,7 +90,7 @@ if len(sys.argv) > 1:
             print("hello")
             os.system("systemctl suspend")
         elif platform.system() == "Windows":
-            os.system('%windir%\System32\rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
+            os.system('%windir%\\System32\\rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
 
         exit()
     else:
