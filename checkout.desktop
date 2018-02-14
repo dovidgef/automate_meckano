@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Checkout
+Comment=Checkout from Meckano
+Exec=/home/dovidgef/commands/automate_meckano.py logout %F
+Icon=/usr/share/icons/Humanity/apps/24/gnome-shutdown.svg
+Terminal=false
+Type=Application
