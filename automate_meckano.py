@@ -9,7 +9,7 @@ import platform
 import json
 from os.path import expanduser
 
-config_path = os.path.join(sys.path[0], 'meckano.json')
+config_path = os.path.join(sys.path[0], 'meckano_test.json')
 # Get access parameters
 with open(config_path) as data_file:
     data = json.load(data_file)
@@ -89,7 +89,7 @@ if len(sys.argv) > 1:
         except:
             pass
 
-        driver.close()
+        driver.quit()
 
         if platform.system() == "Linux":
             print("hello")
@@ -105,4 +105,4 @@ if len(sys.argv) > 1:
 else:
     update_task(task)
 
-driver.close()
+driver.quit()
