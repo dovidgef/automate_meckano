@@ -9,7 +9,7 @@ import platform
 import json
 from os.path import expanduser
 
-config_path = os.path.join(sys.path[0], 'meckano_test.json')
+config_path = os.path.join(sys.path[0], 'meckano.json')
 # Get access parameters
 with open(config_path) as data_file:
     data = json.load(data_file)
