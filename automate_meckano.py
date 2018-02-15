@@ -3,11 +3,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 import sys
 import os
 import platform
 import json
+from os.path import expanduser
 
 config_path = os.path.join(sys.path[0], 'meckano.json')
 # Get access parameters
@@ -19,12 +19,17 @@ with open(config_path) as data_file:
 
 options = webdriver.ChromeOptions()
 
+home_path = expanduser("~")
+
 if platform.system() == "Linux":
     chromedriver_path = os.path.join(sys.path[0], 'chromedriver')
     # Path to selenium chrome profile
-    options.add_argument("user-data-dir=/home/dovidgef/.config/google-chrome/Selenium/")
+    profile_path = home_path + "/.config/google-chrome/Selenium/"
+    options.add_argument("user-data-dir=" + profile_path)
 elif platform.system() == "Windows":
     chromedriver_path = os.path.join(sys.path[0], 'chromedriver.exe')
+    # Path to selenium chrome profile
+    options.add_argument("user-data-dir=%UserName%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Selenium\\")
 else:
     chromedriver_path = ""
 
@@ -50,21 +55,21 @@ def update_task(new_task):
             pass
         if new_task != 'none':
             # Wait for select box to be clickable
-            element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.sbSelector')))
+            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.sbSelector')))
             driver.find_element_by_css_selector(".task-selector").click()
-            element = wait.until(EC.visibility_of_element_located((By.LINK_TEXT, new_task)))
+            wait.until(EC.visibility_of_element_located((By.LINK_TEXT, new_task)))
             driver.find_element_by_link_text(new_task).click()
             # Start new task
             try:
                 driver.find_element_by_id("start-task").click()
-                element = wait.until(EC.element_to_be_clickable((By.ID, 'stop-task')))
+                wait.until(EC.element_to_be_clickable((By.ID, 'stop-task')))
             except:
                 pass
 
 
 try:
     driver.find_element_by_id("checkin-button").click()
-    element = wait.until(EC.element_to_be_clickable((By.ID, 'checkout-button')))
+    wait.until(EC.element_to_be_clickable((By.ID, 'checkout-button')))
 except:
     pass
 

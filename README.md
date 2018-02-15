@@ -26,6 +26,17 @@ alias logout='~/PycharmProjects/automate_meckano/automate_meckano.py logout'
 * Right click on icons > Click properties
 * Customize target to correct path for your system
 
+##### You can create a scheduled task that will run the login script when your computer is unlocked:
+
+1. Start > Administrative Tools > Task Scheduler
+2. left pane: select Task Scheduler Library
+3. right pane: click Create Task... (NOTE: this is the only way to get the correct trigger)
+4. in the Create Task dialog:
+  * General tab -- provide a name for your task
+  * Triggers tab -- click New... and select On workstation unlock
+  * Action tab -- click New... and click Browse... to locate your script
+  * Conditions tab -- uncheck Start the task only if the computer is on AC power
+
 ##### Turn Off Hibernate
 Turn off Hibernate so that the computer goes to sleep instead of hibernating on logout:
 * Open cmd with administrator rights
