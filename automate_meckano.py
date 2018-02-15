@@ -28,8 +28,9 @@ if platform.system() == "Linux":
     options.add_argument("user-data-dir=" + profile_path)
 elif platform.system() == "Windows":
     chromedriver_path = os.path.join(sys.path[0], 'chromedriver.exe')
+    profile_path = home_path + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Selenium\\"
     # Path to selenium chrome profile
-    options.add_argument("user-data-dir=%UserName%\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Selenium\\")
+    options.add_argument("user-data-dir=" + profile_path)
 else:
     chromedriver_path = ""
 
