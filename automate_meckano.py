@@ -56,10 +56,11 @@ def update_task(new_task):
             pass
         if new_task != 'none':
             # Wait for select box to be clickable
-            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.sbSelector')))
-            driver.find_element_by_css_selector(".task-selector").click()
-            wait.until(EC.visibility_of_element_located((By.LINK_TEXT, new_task)))
-            driver.find_element_by_link_text(new_task).click()
+            wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.input-bg-task-selector')))
+            driver.find_element_by_css_selector(".input-bg-task-selector").click()
+            new_task_xpath = "//label[contains(.//span, '{}')]".format(new_task)
+            wait.until(EC.element_to_be_clickable((By.XPATH, new_task_xpath)))
+            driver.find_element_by_xpath(new_task_xpath).click()
             # Start new task
             try:
                 driver.find_element_by_id("start-task").click()
