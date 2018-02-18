@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from selenium import webdriver
+from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -34,7 +35,6 @@ elif platform.system() == "Windows":
 else:
     chromedriver_path = ""
 
-
 driver = webdriver.Chrome(chromedriver_path, chrome_options=options)
 driver.implicitly_wait(10)
 wait = WebDriverWait(driver, 10)
@@ -52,7 +52,7 @@ def update_task(new_task):
         # Close current task
         try:
             driver.find_element_by_id("stop-task").click()
-        except:
+        except (ElementNotVisibleException, NoSuchElementException):
             pass
         if new_task != 'none':
             # Wait for select box to be clickable
@@ -65,14 +65,14 @@ def update_task(new_task):
             try:
                 driver.find_element_by_id("start-task").click()
                 wait.until(EC.element_to_be_clickable((By.ID, 'stop-task')))
-            except:
+            except (ElementNotVisibleException, NoSuchElementException):
                 pass
 
 
 try:
     driver.find_element_by_id("checkin-button").click()
     wait.until(EC.element_to_be_clickable((By.ID, 'checkout-button')))
-except:
+except (ElementNotVisibleException, NoSuchElementException):
     pass
 
 # Check for parameter containing new task or logout argument
@@ -82,13 +82,13 @@ if len(sys.argv) > 1:
         try:
             driver.find_element_by_id("stop-task").click()
             element = wait.until(EC.element_to_be_clickable((By.ID, 'start-task')))
-        except:
+        except (ElementNotVisibleException, NoSuchElementException):
             pass
 
         try:
             driver.find_element_by_id("checkout-button").click()
             element = wait.until(EC.element_to_be_clickable((By.ID, 'checkin-button')))
-        except:
+        except (ElementNotVisibleException, NoSuchElementException):
             pass
 
         driver.quit()
